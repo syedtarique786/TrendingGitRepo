@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <settings default="GitRepo">
+    <module2copyright>
+      <element module="All" copyright="GitRepo" />
+    </module2copyright>
+  </settings>
+</component>

@@ -1,0 +1,95 @@
+//Key and type definitions
+def BOOLEAN = "boolean"
+def STRING = "String"
+def TRUE = "true"
+def FALSE = "false"
+def APP_API_BASE_URL = "APP_API_BASE_URL"
+def LOG_LEVEL_DEBUG  = "LOG_LEVEL_DEBUG"
+def APP_ENDPOINT = "APP_ENDPOINT"
+
+def APP_BASE_URI_STAGGING = "\"https://api.github.com/\""
+def APP_BASE_URI_PROD = "\"https://api.github.com/\""
+def APP_CURRENT = "\"search/repositories\""
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion project.ext.compile_sdk_version
+    //buildToolsVersion project.ext.build_tool_version
+    defaultConfig {
+        applicationId "com.android.syed.gitrepo"
+        minSdkVersion project.ext.min_sdk_version
+        targetSdkVersion project.ext.target_sdk_version
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            buildConfigField BOOLEAN, LOG_LEVEL_DEBUG, FALSE
+            buildConfigField STRING, APP_API_BASE_URL, APP_BASE_URI_PROD
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            buildConfigField BOOLEAN, LOG_LEVEL_DEBUG, TRUE
+            applicationIdSuffix ".debug"
+            buildConfigField STRING, APP_API_BASE_URL, APP_BASE_URI_STAGGING
+            buildConfigField STRING, APP_ENDPOINT, APP_CURRENT
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
+    implementation "androidx.appcompat:appcompat:${appcompat_version}"
+    implementation "androidx.core:core-ktx:${appcompat_version}"
+    implementation "androidx.constraintlayout:constraintlayout:${constraint_version}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${lifecycle_version}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle_version}"
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${widget_version}"
+    implementation "androidx.recyclerview:recyclerview:${widget_version}"
+    implementation "androidx.cardview:cardview:${widget_version}"
+
+    //Retrofit & Interceptor
+    implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:${retrofit_urlconnection_version}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${retrofit_logging_version}"
+    //Dagger 2
+    implementation "com.google.dagger:dagger:${dagger_version}"
+    implementation "com.google.dagger:dagger-android:${dagger_version}"
+    implementation "com.google.dagger:dagger-android-support:${dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${dagger_version}"
+    kapt "com.google.dagger:dagger-android-processor:${dagger_version}"
+    //Picasso
+    implementation "com.squareup.picasso:picasso:${picasso_version}"
+    //Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutine_version}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutine_version}"
+    //RxAndroid , rxjava
+    implementation "io.reactivex.rxjava2:rxandroid:${rxandroid_version}"
+
+    //Testing Unit & UI
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+}

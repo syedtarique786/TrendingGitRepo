@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TrendingRepositories</string>
+
+    <string name="txt_err_something_went_wrong">Something went wrong..</string>
+    <string name="txt_err_network">An alien is probably blocking your signal</string>
+
+    <string name="btn_txt_retry">Retry</string>
+
+    <string name="txt_trending">Trending</string>
+
+    <string name="menu_stars">Sort by Stars</string>
+    <string name="menu_name">Sort by Name</string>
+</resources>
