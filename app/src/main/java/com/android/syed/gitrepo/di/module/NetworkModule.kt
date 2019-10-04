@@ -1,6 +1,7 @@
 package com.android.syed.gitrepo.di.module
 
 import android.text.format.DateUtils
+import com.android.syed.gitrepo.TrendingRepoApplication
 import com.android.syed.gitrepo.network.APIService
 import com.google.gson.Gson
 import dagger.Module
@@ -28,12 +29,13 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(cache: Cache): OkHttpClient {
-        //val cacheSize = 10 * 1024 * 1024 // 10 MB
-        /*val cache = Cache(
-            //TrendingRepoApplication().getAppComponent().context().cacheDir,
+    //fun provideOkHttpClient(cache: Cache): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
+        val cacheSize = 10 * 1024 * 1024 // 10 MB
+        val cache = Cache(
+            TrendingRepoApplication().getAppComponent().context().cacheDir,
             cacheSize.toLong()
-        )*/
+        )
         val client = OkHttpClient.Builder()
             .cache(cache)
             .connectTimeout(DateUtils.MINUTE_IN_MILLIS, TimeUnit.MILLISECONDS)

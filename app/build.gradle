@@ -7,8 +7,8 @@ def APP_API_BASE_URL = "APP_API_BASE_URL"
 def LOG_LEVEL_DEBUG  = "LOG_LEVEL_DEBUG"
 def APP_ENDPOINT = "APP_ENDPOINT"
 
-def APP_BASE_URI_STAGGING = "\"https://api.github.com/\""
-def APP_BASE_URI_PROD = "\"https://api.github.com/\""
+def APP_BASE_URI_STAGGING = "\"https://github-trending-api.now.sh/\""
+def APP_BASE_URI_PROD = "\"https://github-trending-api.now.sh/\""
 def APP_CURRENT = "\"search/repositories\""
 
 apply plugin: 'com.android.application'

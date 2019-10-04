@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
         ViewModelProviders.of(this, mViewModelFactory).get(RepoListViewModel::class.java)
     }
 
-    private lateinit var mRepoAddapter: RepoListAdapter
+    private lateinit var mRepoAdapter: RepoListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +42,11 @@ class MainFragment : Fragment() {
     }
 
     private fun initViews() {
-        mRepoAddapter = RepoListAdapter(activity as MainActivity)
+        mRepoAdapter = RepoListAdapter(activity as MainActivity)
 
         val dividerItemDecoration = DividerItemDecoration(activity, RecyclerView.VERTICAL)
         rv_trending_repo.addItemDecoration(dividerItemDecoration)
-        rv_trending_repo.adapter = mRepoAddapter
+        rv_trending_repo.adapter = mRepoAdapter
 
         layout_swipe.setOnRefreshListener {
             viewModel.onSwipeRefreshed()
@@ -86,7 +86,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setRepoItems(repoList: List<RepoModel>) {
-        mRepoAddapter.setItems(repoList)
+        mRepoAdapter.setItems(repoList)
     }
 
     private fun reFetchTrendingRepos() {
