@@ -1,8 +1,8 @@
 package com.android.syed.gitrepo.di.module
 
+import android.app.Application
 import android.text.format.DateUtils
 import com.android.syed.gitrepo.BuildConfig
-import com.android.syed.gitrepo.TrendingRepoApplication
 import com.android.syed.gitrepo.network.APIService
 import com.android.syed.gitrepo.repository.MyRepository
 import com.android.syed.gitrepo.repository.impl.MyRepositoryImpl
@@ -16,11 +16,14 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 class NetworkModule {
+
+    private val MAX_STALE: Int = 2
 
     @Provides
     @Singleton
@@ -32,13 +35,15 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    //fun provideOkHttpClient(cache: Cache): OkHttpClient {
-    fun provideOkHttpClient(): OkHttpClient {
-        val cacheSize = 10 * 1024 * 1024 // 10 MB
-        val cache = Cache(
-            TrendingRepoApplication().getAppComponent().context().cacheDir,
-            cacheSize.toLong()
-        )
+    internal fun provideCache(application: Application): Cache {
+        val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
+        val httpCacheDirectory = File(application.cacheDir, "http-cache")
+        return Cache(httpCacheDirectory, cacheSize)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(cache: Cache): OkHttpClient {
         val client = OkHttpClient.Builder()
             .cache(cache)
             .connectTimeout(DateUtils.MINUTE_IN_MILLIS, TimeUnit.MILLISECONDS)
@@ -58,7 +63,6 @@ class NetworkModule {
     fun provideRetrofit(mFactory: GsonConverterFactory, mClient: OkHttpClient)
             : Retrofit = Retrofit.Builder()
         .client(mClient)
-        //.baseUrl("https://github-trending-api.now.sh")
         .baseUrl(BuildConfig.APP_API_BASE_URL)
         .addConverterFactory(mFactory)
         .build()
@@ -72,14 +76,14 @@ class NetworkModule {
     @Singleton
     fun provideApiRepository(mApiService: APIService): MyRepository = MyRepositoryImpl(mApiService)
 
-    fun provideOfflineCacheInterceptor(): Interceptor {
+    private fun provideOfflineCacheInterceptor(): Interceptor {
         return Interceptor { chain ->
             try {
                 chain.proceed(chain.request())
             } catch (e: Exception) {
                 val cacheControl = CacheControl.Builder()
                     .onlyIfCached()
-                    .maxStale(2, TimeUnit.HOURS)
+                    .maxStale(MAX_STALE, TimeUnit.HOURS)
                     .build()
 
                 val offlineRequest = chain.request().newBuilder()
@@ -90,7 +94,7 @@ class NetworkModule {
         }
     }
 
-    fun provideCacheInterceptor(): Interceptor {
+    private fun provideCacheInterceptor(): Interceptor {
         return Interceptor { chain ->
             var request = chain.request()
             val originalResponse = chain.proceed(request)
@@ -103,7 +107,7 @@ class NetworkModule {
                 cacheControl.contains("max-stale=0")
             ) {
                 val cc = CacheControl.Builder()
-                    .maxStale(2, TimeUnit.HOURS)
+                    .maxStale(MAX_STALE, TimeUnit.HOURS)
                     .build()
                 request = request.newBuilder()
                     .cacheControl(cc)

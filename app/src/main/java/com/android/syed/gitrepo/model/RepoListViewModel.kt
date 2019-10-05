@@ -5,17 +5,10 @@
 
 package com.android.syed.gitrepo.model
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.view.View
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.syed.gitrepo.R
 import com.android.syed.gitrepo.repository.MyRepository
 import com.android.syed.gitrepo.utils.Event
 import com.android.syed.gitrepo.utils.Result
@@ -24,18 +17,14 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class RepoListViewModel @Inject constructor(private val mRepository: MyRepository) : ViewModel() {
-        private val foregroundContext: CoroutineContext by lazy { Dispatchers.Main }
-        private val computationContext: CoroutineContext by lazy { Dispatchers.Default }
+    private val foregroundContext: CoroutineContext by lazy { Dispatchers.Main }
+    private val computationContext: CoroutineContext by lazy { Dispatchers.Default }
 
-        private var fetchJob: Job? = null
+    private var fetchJob: Job? = null
 
     private val _uiState = MutableLiveData<UIModel>()
     val uiState: LiveData<UIModel>
         get() = _uiState
-
-    private val _popUpState = MutableLiveData<Unit>()
-    val popUpState: LiveData<Unit>
-        get() = _popUpState
 
     private val _reFetchingState = MutableLiveData<Unit>()
     val reFetchingState: LiveData<Unit>
@@ -49,27 +38,9 @@ class RepoListViewModel @Inject constructor(private val mRepository: MyRepositor
         if (fetchJob?.isActive == true) {
             return
         }
-
         fetchJob = fetchRepos()
     }
 
-    /*fun sortListByNames(list: List<RepoModel>) {
-        val result = mRepository.sortByNames(list)
-        emitUiState(
-            showSuccess = Event(result)
-        )
-    }
-
-    fun sortListByStars(list: List<RepoModel>) {
-        val result = mRepository.sortByStars(list)
-        emitUiState(
-            showSuccess = Event(result)
-        )
-    }*/
-
-    fun onMenuButtonClicked() {
-        _popUpState.postValue(null)
-    }
 
     fun onSwipeRefreshed() {
         updateReFetch()

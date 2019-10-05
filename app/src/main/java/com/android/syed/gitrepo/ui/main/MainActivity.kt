@@ -18,6 +18,7 @@ import com.android.syed.gitrepo.model.RepoModel
 import com.android.syed.gitrepo.ui.adapter.RepoListAdapter
 import com.android.syed.gitrepo.utils.ShimmerLayout
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.layout_error.*
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
@@ -35,12 +36,6 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         initViews()
-        /*if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
-        }*/
-
     }
 
     private fun initViews() {
@@ -77,6 +72,8 @@ class MainActivity : DaggerAppCompatActivity() {
         })
 
         viewModel.reFetchingState.observe(this, Observer { reFetchTrendingRepos() })
+
+        btn_retry.setOnClickListener { viewModel.onRetryClicked() }
     }
 
 
@@ -95,10 +92,6 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun reFetchTrendingRepos() {
         hideErrorLayout()
         viewModel.fetchTrendingRepositories()
-    }
-
-    companion object {
-        fun newInstance() = MainFragment()
     }
 
     private fun startShimmerAnimation() {

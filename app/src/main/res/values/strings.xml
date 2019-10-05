@@ -10,4 +10,6 @@
 
     <string name="menu_stars">Sort by Stars</string>
     <string name="menu_name">Sort by Name</string>
+    <string name="msg_no_network">No network, please check your network</string>
+    <string name="msg_something_went_wrong">Something went wrong, please try again</string>
 </resources>

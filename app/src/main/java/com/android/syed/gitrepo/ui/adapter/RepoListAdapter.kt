@@ -7,7 +7,6 @@ package com.android.syed.gitrepo.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,17 +14,14 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.syed.gitrepo.R
 import com.android.syed.gitrepo.model.RepoModel
-import com.android.syed.gitrepo.utils.getCircleStrokeBg
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_repo.view.*
 
-class RepoListAdapter(context: Context) :
+class RepoListAdapter(private var context: Context) :
     RecyclerView.Adapter<RepoListAdapter.RepoItemViewHolder>() {
-    private var context: Context = context
     private var items = emptyList<RepoModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoItemViewHolder {
@@ -51,12 +47,6 @@ class RepoListAdapter(context: Context) :
                 ivItemLanguage.visibility = View.GONE
                 tvItemLanguage.visibility = View.GONE
             } else {
-                /*val drawable: GradientDrawable = getCircleStrokeBg(
-                    context,
-                    ContextCompat.getColor(context, R.color.colorAccent),
-                    ContextCompat.getColor(context, R.color.colorPrimaryDark)
-                )
-                //ivItemLanguage.setImageDrawable(drawable)*/
                 ivItemLanguage.visibility = View.VISIBLE
                 tvItemLanguage.text = data.language
             }
@@ -106,7 +96,7 @@ class RepoListAdapter(context: Context) :
 
         fun onCardClicked(context: Context) {
             val cardColor: Int =
-                if (expandableLayout.visibility == View.VISIBLE) context.resources.getColor(R.color.shimmer_color)
+                if (expandableLayout.visibility == View.VISIBLE) context.resources.getColor(R.color.white)
                 else context.resources.getColor(R.color.brdr_green)
             cvRoot.setCardBackgroundColor(cardColor)
             expandableLayout.visibility =
