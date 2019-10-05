@@ -1,4 +1,4 @@
-package com.android.syed.gitrepo.network
+package com.android.syed.gitrepo.repository
 
 import com.android.syed.gitrepo.model.RepoModel
 import com.android.syed.gitrepo.utils.Result

@@ -31,6 +31,7 @@
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="toolbar_txt_margin">14dp</dimen>
     <dimen name="toolbar_menu">24dp</dimen>
+    <dimen name="toolbar_menu_width">30dp</dimen>
 
     //Menu Item
     <dimen name="menu_height">48dp</dimen>
@@ -47,7 +48,8 @@
     <dimen name="shimmer_tv_width_small">100dp</dimen>
     <dimen name="shimmer_tv_width_large">260dp</dimen>
 
-    //Popup menu Window
     <dimen name="card_corner_radius">3dp</dimen>
+    <dimen name="card_elevation">6dp</dimen>
+    <dimen name="card_max_elevation">10dp</dimen>
 
 </resources>

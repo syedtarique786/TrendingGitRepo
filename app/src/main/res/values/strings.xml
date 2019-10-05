@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrendingRepositories</string>
+    <string name="app_name">Trending Repositories</string>
 
     <string name="txt_err_something_went_wrong">Something went wrong..</string>
     <string name="txt_err_network">An alien is probably blocking your signal</string>

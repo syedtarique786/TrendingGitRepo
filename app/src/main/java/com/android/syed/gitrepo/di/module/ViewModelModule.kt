@@ -13,7 +13,6 @@ import dagger.Module
 
 @Module(includes = [ActivityViewModelProvider::class])
 abstract class ViewModelModule {
-
     @Binds
     internal abstract fun bindViewModelFactory(mFactory: ViewModelFactory): ViewModelProvider.Factory
 }

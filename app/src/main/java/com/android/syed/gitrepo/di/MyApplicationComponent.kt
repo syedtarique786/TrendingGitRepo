@@ -10,6 +10,7 @@ import android.content.Context
 import com.android.syed.gitrepo.TrendingRepoApplication
 import com.android.syed.gitrepo.di.module.ActivityModule
 import com.android.syed.gitrepo.di.module.ApplicationModule
+import com.android.syed.gitrepo.di.module.FragmentModule
 import com.android.syed.gitrepo.di.module.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
@@ -23,6 +24,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         ActivityModule::class,
+        FragmentModule::class,
         NetworkModule::class
     ]
 )

@@ -15,7 +15,7 @@ import com.android.syed.gitrepo.R
 import com.android.syed.gitrepo.model.RepoListViewModel
 import com.android.syed.gitrepo.model.RepoModel
 import com.android.syed.gitrepo.ui.adapter.RepoListAdapter
-import kotlinx.android.synthetic.main.layout_toobar.*
+import kotlinx.android.synthetic.main.layout_app_toolbar.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
 
@@ -31,8 +31,7 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
@@ -55,7 +54,7 @@ class MainFragment : Fragment() {
 
         imgv_menu.setOnClickListener { viewModel.onMenuButtonClicked() }
 
-        viewModel.uiState.observe(this, Observer {
+        viewModel.uiState.observe(this, Observer { it ->
             val uiModel = it ?: return@Observer
 
             if (uiModel.showError != null && !uiModel.showError.consumed) {

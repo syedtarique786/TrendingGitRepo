@@ -2,6 +2,7 @@ package com.android.syed.gitrepo.utils
 
 import java.io.IOException
 
+
 suspend fun <T : Any> safeApiCall(call: suspend () -> Result<T>, errorMessage: String): Result<T> {
     return try {
         call()

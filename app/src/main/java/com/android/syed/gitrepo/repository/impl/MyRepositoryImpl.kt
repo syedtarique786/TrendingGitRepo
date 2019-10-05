@@ -3,16 +3,17 @@
  * $used.year
  */
 
-package com.android.syed.gitrepo.network.impl
+package com.android.syed.gitrepo.repository.impl
 
 import com.android.syed.gitrepo.model.RepoModel
 import com.android.syed.gitrepo.network.APIService
-import com.android.syed.gitrepo.network.MyRepository
+import com.android.syed.gitrepo.repository.MyRepository
 import com.android.syed.gitrepo.utils.Result
 import com.android.syed.gitrepo.utils.safeApiCall
 import java.io.IOException
 
-class MyRepositoryImpl(private val mApiService: APIService) : MyRepository {
+class MyRepositoryImpl(private val mApiService: APIService) :
+    MyRepository {
 
     override suspend fun fetchTrendingRepos() = safeApiCall(
         call = { fetchRepositories() },

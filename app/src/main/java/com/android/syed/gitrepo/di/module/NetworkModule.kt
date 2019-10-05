@@ -1,8 +1,11 @@
 package com.android.syed.gitrepo.di.module
 
 import android.text.format.DateUtils
+import com.android.syed.gitrepo.BuildConfig
 import com.android.syed.gitrepo.TrendingRepoApplication
 import com.android.syed.gitrepo.network.APIService
+import com.android.syed.gitrepo.repository.MyRepository
+import com.android.syed.gitrepo.repository.impl.MyRepositoryImpl
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -55,7 +58,8 @@ class NetworkModule {
     fun provideRetrofit(mFactory: GsonConverterFactory, mClient: OkHttpClient)
             : Retrofit = Retrofit.Builder()
         .client(mClient)
-        .baseUrl("https://github-trending-api.now.sh")
+        //.baseUrl("https://github-trending-api.now.sh")
+        .baseUrl(BuildConfig.APP_API_BASE_URL)
         .addConverterFactory(mFactory)
         .build()
 
@@ -66,7 +70,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    //fun provideApiRepository(mApiService: APIService): MyRepository = MyRepositoryImpl(mApiService)
+    fun provideApiRepository(mApiService: APIService): MyRepository = MyRepositoryImpl(mApiService)
 
     fun provideOfflineCacheInterceptor(): Interceptor {
         return Interceptor { chain ->

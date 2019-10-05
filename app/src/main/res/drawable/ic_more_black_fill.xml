@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (c) 2019. This class is only created by Syed & only means to used by Syed for Development & Testing Purpose. This class can be also used by other with proper permission. Any unauthorised used is strictly prohibited.
+  ~ $used.year
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M256,256m-64,0a64,64 0,1 1,128 0a64,64 0,1 1,-128 0"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M256,448m-64,0a64,64 0,1 1,128 0a64,64 0,1 1,-128 0"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M256,64m-64,0a64,64 0,1 1,128 0a64,64 0,1 1,-128 0"/>
+</vector>

@@ -5,19 +5,12 @@
 
 package com.android.syed.gitrepo.di.module
 
-import com.android.syed.gitrepo.ui.main.MainActivity
+import com.android.syed.gitrepo.ui.main.MainFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import javax.inject.Scope
-
-@Scope
-@MustBeDocumented
-annotation class ActivityScope
 
 @Module
-abstract class ActivityModule {
-    @ActivityScope
+abstract class FragmentModule {
     @ContributesAndroidInjector
-    abstract fun bindTrendingActivity(): MainActivity
-
+    internal abstract fun bindTrendingFragment(): MainFragment
 }
