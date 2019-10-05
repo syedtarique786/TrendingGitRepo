@@ -7,8 +7,6 @@ package com.android.syed.gitrepo.ui.main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -18,13 +16,13 @@ import com.android.syed.gitrepo.R
 import com.android.syed.gitrepo.model.RepoListViewModel
 import com.android.syed.gitrepo.model.RepoModel
 import com.android.syed.gitrepo.ui.adapter.RepoListAdapter
+import com.android.syed.gitrepo.utils.ShimmerLayout
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.layout_error.*
-import kotlinx.android.synthetic.main.layout_app_toolbar.*
+import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity()  {
+class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var mViewModelFactory: ViewModelProvider.Factory
@@ -57,10 +55,15 @@ class MainActivity : DaggerAppCompatActivity()  {
             layout_swipe.isRefreshing = false
         }
 
-        imgv_menu.setOnClickListener { viewModel.onMenuButtonClicked() }
 
-        viewModel.uiState.observe(this, Observer {
+        viewModel.uiState.observe(this, Observer { it ->
             val uiModel = it ?: return@Observer
+
+            if (uiModel.showProgress) {
+                startShimmerAnimation()
+            } else {
+                stopShimmerAnimation()
+            }
 
             if (uiModel.showError != null && !uiModel.showError.consumed) {
                 uiModel.showError.consume()?.let { showErrorLayout() }
@@ -72,10 +75,6 @@ class MainActivity : DaggerAppCompatActivity()  {
                 uiModel.showSuccess.consume()?.let { setRepoItems(it) }
             }
         })
-
-        viewModel.popUpState.observe(
-            this,
-            Observer { Toast.makeText(this@MainActivity, "Clicked", Toast.LENGTH_SHORT).show() })
 
         viewModel.reFetchingState.observe(this, Observer { reFetchTrendingRepos() })
     }
@@ -100,6 +99,27 @@ class MainActivity : DaggerAppCompatActivity()  {
 
     companion object {
         fun newInstance() = MainFragment()
+    }
+
+    private fun startShimmerAnimation() {
+        hideErrorLayout()
+        hideRecyclerView()
+        loading_layout.visibility = View.VISIBLE
+        (loading_layout as ShimmerLayout).startShimmerAnimation()
+    }
+
+    private fun stopShimmerAnimation() {
+        loading_layout.visibility = View.GONE
+        (loading_layout as ShimmerLayout).stopShimmerAnimation()
+        showRecyclerView()
+    }
+
+    private fun hideRecyclerView() {
+        rv_trending_repo.visibility = View.GONE
+    }
+
+    private fun showRecyclerView() {
+        rv_trending_repo.visibility = View.VISIBLE
     }
 
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. This class is only created by Syed & only means to used by Syed for Development & Testing Purpose. This class can be also used by other with proper permission. Any unauthorised used is strictly prohibited.
+  ~ $used.year
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view_circular"
+        android:layout_width="@dimen/shimmer_circular"
+        android:layout_height="@dimen/shimmer_circular"
+        android:background="@drawable/circular_image_shimmer"
+        android:layout_marginTop="@dimen/shimmer_margin_top"
+        android:layout_marginStart="@dimen/shimmer_margin"
+        android:layout_marginBottom="@dimen/shimmer_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/view_small"
+        android:layout_width="@dimen/shimmer_tv_width_small"
+        android:layout_height="@dimen/shimmer_tv_height"
+        android:layout_marginStart="@dimen/shimmer_margin"
+        android:layout_marginTop="@dimen/shimmer_margin_top"
+        android:background="@drawable/oval_image_shimmer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/view_circular"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <View
+        android:id="@+id/view_large"
+        android:layout_width="@dimen/shimmer_tv_width_large"
+        android:layout_height="@dimen/shimmer_tv_height"
+        android:layout_marginStart="@dimen/shimmer_margin"
+        android:layout_marginTop="@dimen/shimmer_margin"
+        android:layout_marginEnd="@dimen/shimmer_margin_right"
+        android:layout_marginBottom="@dimen/shimmer_margin_bottom"
+        android:background="@drawable/oval_image_shimmer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/view_circular"
+        app:layout_constraintTop_toBottomOf="@+id/view_small"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

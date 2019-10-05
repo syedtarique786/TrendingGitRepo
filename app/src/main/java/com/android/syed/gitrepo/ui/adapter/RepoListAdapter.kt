@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -50,19 +51,19 @@ class RepoListAdapter(context: Context) :
                 ivItemLanguage.visibility = View.GONE
                 tvItemLanguage.visibility = View.GONE
             } else {
-                val drawable: GradientDrawable = getCircleStrokeBg(
+                /*val drawable: GradientDrawable = getCircleStrokeBg(
                     context,
                     ContextCompat.getColor(context, R.color.colorAccent),
                     ContextCompat.getColor(context, R.color.colorPrimaryDark)
                 )
-                //ivItemLanguage.setImageDrawable(drawable)
+                //ivItemLanguage.setImageDrawable(drawable)*/
                 ivItemLanguage.visibility = View.VISIBLE
                 tvItemLanguage.text = data.language
             }
             tvItemStars.text = data.stars.toString()
             tvItemForks.text = data.forks.toString()
             expandableLayout.visibility = View.GONE
-            item.setOnClickListener { onCardClicked() }
+            item.setOnClickListener { onCardClicked(context) }
         }
     }
 
@@ -87,8 +88,10 @@ class RepoListAdapter(context: Context) :
         val tvItemStars: TextView
         val tvItemForks: TextView
         val expandableLayout: ConstraintLayout
+        val cvRoot: CardView
 
         init {
+            cvRoot = item.item_root
             ivRepoIcon = item.iv_repo_icon
             tvItemAuthor = item.tv_item_author
             tvItemName = item.tv_item_name
@@ -101,7 +104,11 @@ class RepoListAdapter(context: Context) :
             expandableLayout = item.view_details
         }
 
-        fun onCardClicked() {
+        fun onCardClicked(context: Context) {
+            val cardColor: Int =
+                if (expandableLayout.visibility == View.VISIBLE) context.resources.getColor(R.color.shimmer_color)
+                else context.resources.getColor(R.color.brdr_green)
+            cvRoot.setCardBackgroundColor(cardColor)
             expandableLayout.visibility =
                 if (expandableLayout.visibility == View.GONE) View.VISIBLE else View.GONE
         }

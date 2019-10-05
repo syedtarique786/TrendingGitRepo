@@ -6,8 +6,7 @@
     android:id="@+id/item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    card_view:cardBackgroundColor="@color/shimmer_color"
+    card_view:cardBackgroundColor="@color/white"
     card_view:cardElevation="@dimen/card_elevation"
     card_view:cardMaxElevation="@dimen/card_max_elevation">
 
@@ -70,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin_short"
-            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginBottom="@dimen/default_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

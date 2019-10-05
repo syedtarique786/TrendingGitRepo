@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. This class is only created by Syed & only means to used by Syed for Development & Testing Purpose. This class can be also used by other with proper permission. Any unauthorised used is strictly prohibited.
+  ~ $used.year
+  -->
+
+<com.android.syed.gitrepo.utils.ShimmerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/view_1"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_2"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_3"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_4"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_5"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_6"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_7"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_8"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_9"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color" />
+
+        <include
+            android:id="@+id/view_10"
+            layout="@layout/item_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</com.android.syed.gitrepo.utils.ShimmerLayout>
