@@ -8,12 +8,19 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 
 
+fun getCircleGradientBg(solidColor: Int, strokeColor: Int): GradientDrawable {
+    val gd = GradientDrawable()
+    gd.shape = GradientDrawable.OVAL
+    gd.setColor(solidColor)
+    gd.setStroke(1, strokeColor)
+    return gd
+}
+
 fun getCircleStrokeBg(context: Context, solidColor: Int, strokeColor: Int): GradientDrawable {
     val gd = GradientDrawable()
     gd.shape = GradientDrawable.OVAL
-    gd.setColor(Color.parseColor("#D81B60"))
-    gd.setStroke(getOneDpAsPixel(context), Color.parseColor("#00574B"))
-
+    gd.setColor(solidColor)
+    gd.setStroke(getOneDpAsPixel(context), strokeColor)
     return gd
 }
 

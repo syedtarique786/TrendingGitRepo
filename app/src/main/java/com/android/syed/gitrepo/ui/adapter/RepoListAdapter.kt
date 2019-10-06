@@ -7,6 +7,9 @@ package com.android.syed.gitrepo.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +20,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.android.syed.gitrepo.R
 import com.android.syed.gitrepo.model.RepoModel
+import com.android.syed.gitrepo.utils.CircularTransform
+import com.android.syed.gitrepo.utils.getCircleGradientBg
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_repo.view.*
 
@@ -37,9 +42,12 @@ class RepoListAdapter(private var context: Context) :
         val data = getItem(position)
 
         holder.apply {
-            Picasso.get().load(data.avatar)
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(ivRepoIcon)
+            loadImage(data.avatar, ivRepoIcon)
+            /*ivRepoIcon.background = getCircleStrokeBg(
+                context,
+                context.resources.getColor(R.color.white),
+                context.resources.getColor(R.color.white)
+            )*/
             tvItemAuthor.text = data.author
             tvItemName.text = data.name
             tvItemDescription.text = data.description
@@ -47,14 +55,37 @@ class RepoListAdapter(private var context: Context) :
                 ivItemLanguage.visibility = View.GONE
                 tvItemLanguage.visibility = View.GONE
             } else {
-                ivItemLanguage.visibility = View.VISIBLE
-                tvItemLanguage.text = data.language
+                try {
+                    val gradient = getCircleGradientBg(
+                        Color.parseColor(data.languageColor),
+                        Color.parseColor(data.languageColor)
+                    )
+                    ivItemLanguage.setImageDrawable(gradient)
+                    tvItemLanguage.text = data.language
+                    ivItemLanguage.visibility = View.VISIBLE
+                    tvItemLanguage.visibility = View.VISIBLE
+                } catch (ex: IllegalArgumentException) {
+                    // For "languageColor": "#ccc",
+                    ivItemLanguage.visibility = View.GONE
+                    //ex.printStackTrace()
+                }
             }
             tvItemStars.text = data.stars.toString()
             tvItemForks.text = data.forks.toString()
             expandableLayout.visibility = View.GONE
             item.setOnClickListener { onCardClicked(context) }
         }
+    }
+
+    /**
+     * Load Url into ImageView & Transform into Circular shape
+     * */
+    private fun loadImage(url: String, view: AppCompatImageView) {
+        Picasso.get()
+            .load(url)
+            .transform(CircularTransform())
+            .placeholder(R.drawable.ic_launcher_background)
+            .into(view)
     }
 
     override fun getItemCount() = items.size
@@ -95,10 +126,7 @@ class RepoListAdapter(private var context: Context) :
         }
 
         fun onCardClicked(context: Context) {
-            val cardColor: Int =
-                if (expandableLayout.visibility == View.VISIBLE) context.resources.getColor(R.color.white)
-                else context.resources.getColor(R.color.brdr_green)
-            cvRoot.setCardBackgroundColor(cardColor)
+            //cvRoot.setCardBackgroundColor(context.resources.getColor(R.color.white))
             expandableLayout.visibility =
                 if (expandableLayout.visibility == View.GONE) View.VISIBLE else View.GONE
         }

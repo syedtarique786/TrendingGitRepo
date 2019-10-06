@@ -98,12 +98,3 @@ data class UIModel(
     val showError: Event<Boolean>?,
     val showSuccess: Event<List<RepoModel>>?
 )
-
-abstract class NonNullObserver<T> : Observer<T> {
-
-    abstract fun onNonNullChanged(t: T)
-
-    override fun onChanged(t: T?) {
-        t?.let { onNonNullChanged(it) }
-    }
-}

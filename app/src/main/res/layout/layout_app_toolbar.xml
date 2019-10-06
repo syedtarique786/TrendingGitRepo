@@ -31,13 +31,14 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgv_menu"
         android:layout_width="@dimen/toolbar_menu_width"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/toolbar_height"
         android:gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_more_black" />
+        app:srcCompat="@drawable/ic_more_black_fill"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ package com.android.syed.gitrepo.ui.main
 
 import ConnectionLiveData
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +23,7 @@ import com.android.syed.gitrepo.ui.adapter.RepoListAdapter
 import com.android.syed.gitrepo.utils.ShimmerLayout
 import com.android.syed.gitrepo.utils.showToast
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.layout_app_toolbar.*
 import kotlinx.android.synthetic.main.layout_error.*
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -55,6 +57,7 @@ class MainActivity : DaggerAppCompatActivity() {
         }
 
         btn_retry.setOnClickListener { viewModel.onRetryClicked() }
+        imgv_menu.setOnClickListener { Log.d("MainActivity", "Menu clicked") }
     }
 
 
@@ -131,7 +134,7 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun observeNetwork() {
         val connectionLiveData = ConnectionLiveData(application)
         connectionLiveData.nonNullObserve(this, { available ->
-            val uiModel: UIModel = viewModel.uiState.value!!
+            val uiModel: UIModel = viewModel.uiState!!.value!!
             if (available) {
                 if (uiModel.showProgress) {                             // Progress
                     reFetchTrendingRepos()

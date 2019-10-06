@@ -6,6 +6,7 @@
     android:id="@+id/item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/selector_list_item"
     card_view:cardBackgroundColor="@color/white"
     card_view:cardElevation="@dimen/card_elevation"
     card_view:cardMaxElevation="@dimen/card_max_elevation">
@@ -35,8 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
             tools:text="TextView"
             android:textColor="@color/tv_txt_grey_item"
             android:textSize="@dimen/txt_small"
@@ -54,7 +55,7 @@
             android:layout_marginBottom="@dimen/default_margin"
             tools:text="TextView"
             android:textColor="@color/tv_txt_grey_item"
-            android:textSize="@dimen/txt_normal"
+            android:textSize="@dimen/txt_header"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -84,7 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/tv_txt_grey_item"
-                android:textSize="@dimen/txt_header"
+                android:textSize="@dimen/txt_small"
                 tools:text="Demo text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +95,7 @@
                 android:id="@+id/iv_item_language"
                 android:layout_width="@dimen/img_size_details"
                 android:layout_height="@dimen/img_size_details"
+                android:padding="@dimen/default_margin_small_extra"
                 android:layout_marginTop="@dimen/default_margin_short"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_item_description"
@@ -108,7 +110,7 @@
                 android:layout_marginEnd="16dp"
                 tools:text="Language"
                 android:textColor="@color/tv_txt_grey_item"
-                android:textSize="@dimen/txt_header"
+                android:textSize="@dimen/txt_small"
                 app:layout_constraintEnd_toStartOf="@+id/iv_item_star"
                 app:layout_constraintStart_toEndOf="@+id/iv_item_language"
                 app:layout_constraintTop_toBottomOf="@+id/tv_item_description" />
@@ -134,7 +136,7 @@
                 android:layout_marginStart="@dimen/default_margin_small"
                 android:layout_marginTop="@dimen/default_margin_short"
                 android:textColor="@color/tv_txt_grey_item"
-                android:textSize="@dimen/txt_header"
+                android:textSize="@dimen/txt_small"
                 app:layout_constraintStart_toEndOf="@+id/iv_item_star"
                 app:layout_constraintTop_toBottomOf="@+id/tv_item_description" />
 
@@ -159,7 +161,7 @@
                 android:layout_marginStart="@dimen/default_margin_small"
                 android:layout_marginTop="@dimen/default_margin_short"
                 android:textColor="@color/tv_txt_grey_item"
-                android:textSize="@dimen/txt_header"
+                android:textSize="@dimen/txt_small"
                 app:layout_constraintStart_toEndOf="@+id/imgv_fork"
                 app:layout_constraintTop_toBottomOf="@+id/tv_item_description" />
         </androidx.constraintlayout.widget.ConstraintLayout>
