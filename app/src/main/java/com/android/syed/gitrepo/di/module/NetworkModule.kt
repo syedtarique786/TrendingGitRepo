@@ -111,6 +111,7 @@ class NetworkModule {
                     .build()
                 request = request.newBuilder()
                     .cacheControl(cc)
+                   // .cacheControl(CacheControl.FORCE_NETWORK)
                     .build()
                 chain.proceed(request)
 

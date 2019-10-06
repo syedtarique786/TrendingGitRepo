@@ -5,6 +5,7 @@
 
 package com.android.syed.gitrepo.ui.main
 
+import ConnectionLiveData
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -13,10 +14,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.android.syed.gitrepo.R
+import com.android.syed.gitrepo.di.module.nonNullObserve
 import com.android.syed.gitrepo.model.RepoListViewModel
 import com.android.syed.gitrepo.model.RepoModel
+import com.android.syed.gitrepo.model.UIModel
 import com.android.syed.gitrepo.ui.adapter.RepoListAdapter
 import com.android.syed.gitrepo.utils.ShimmerLayout
+import com.android.syed.gitrepo.utils.showToast
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.layout_error.*
 import kotlinx.android.synthetic.main.main_activity.*
@@ -50,7 +54,16 @@ class MainActivity : DaggerAppCompatActivity() {
             layout_swipe.isRefreshing = false
         }
 
+        btn_retry.setOnClickListener { viewModel.onRetryClicked() }
+    }
 
+
+    override fun onStart() {
+        super.onStart()
+        subscribeUi()
+    }
+
+    private fun subscribeUi() {
         viewModel.uiState.observe(this, Observer { it ->
             val uiModel = it ?: return@Observer
 
@@ -71,14 +84,14 @@ class MainActivity : DaggerAppCompatActivity() {
             }
         })
 
-        viewModel.reFetchingState.observe(this, Observer { reFetchTrendingRepos() })
+        viewModel.reFetchingState.nonNullObserve(this, { reFetchTrendingRepos() })
 
-        btn_retry.setOnClickListener { viewModel.onRetryClicked() }
+        observeNetwork()
     }
-
 
     private fun showErrorLayout() {
         loading_error_layout.visibility = View.VISIBLE
+        hideRecyclerView()
     }
 
     private fun hideErrorLayout() {
@@ -113,6 +126,22 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun showRecyclerView() {
         rv_trending_repo.visibility = View.VISIBLE
+    }
+
+    private fun observeNetwork() {
+        val connectionLiveData = ConnectionLiveData(application)
+        connectionLiveData.nonNullObserve(this, { available ->
+            val uiModel: UIModel = viewModel.uiState.value!!
+            if (available) {
+                if (uiModel.showProgress) {                             // Progress
+                    reFetchTrendingRepos()
+                } else if (uiModel.showSuccess != null && !uiModel.showSuccess.consumed) {  //Success
+                    showRecyclerView()
+                }
+            } else if (uiModel.showError != null && !uiModel.showError.consumed) {      //Error
+                showToast(this@MainActivity, getString(R.string.msg_check_connectivity))
+            }
+        })
     }
 
 }

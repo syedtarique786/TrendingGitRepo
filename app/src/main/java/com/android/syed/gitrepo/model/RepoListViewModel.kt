@@ -5,10 +5,7 @@
 
 package com.android.syed.gitrepo.model
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.android.syed.gitrepo.repository.MyRepository
 import com.android.syed.gitrepo.utils.Event
 import com.android.syed.gitrepo.utils.Result
@@ -32,6 +29,14 @@ class RepoListViewModel @Inject constructor(private val mRepository: MyRepositor
 
     init {
         fetchTrendingRepositories()
+    }
+
+    /**
+     * Cancel all coroutines when the ViewModel is cleared
+     */
+    override fun onCleared() {
+        super.onCleared()
+        fetchJob!!.cancel()
     }
 
     fun fetchTrendingRepositories() {
@@ -93,3 +98,12 @@ data class UIModel(
     val showError: Event<Boolean>?,
     val showSuccess: Event<List<RepoModel>>?
 )
+
+abstract class NonNullObserver<T> : Observer<T> {
+
+    abstract fun onNonNullChanged(t: T)
+
+    override fun onChanged(t: T?) {
+        t?.let { onNonNullChanged(it) }
+    }
+}
