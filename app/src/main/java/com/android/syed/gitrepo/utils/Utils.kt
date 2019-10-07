@@ -26,7 +26,7 @@ fun getCircleStrokeBg(context: Context, solidColor: Int, strokeColor: Int): Grad
 
 fun getOneDpAsPixel(context: Context): Int {
     val scale = context.resources.displayMetrics.density
-    return (scale + 0.5f).toInt()
+    return (scale + 0.3f).toInt()
 }
 
 fun getRectStrokeTopRightTopLeftRoundBg(

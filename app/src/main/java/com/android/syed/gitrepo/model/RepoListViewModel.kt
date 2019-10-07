@@ -5,7 +5,10 @@
 
 package com.android.syed.gitrepo.model
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.android.syed.gitrepo.repository.MyRepository
 import com.android.syed.gitrepo.utils.Event
 import com.android.syed.gitrepo.utils.Result

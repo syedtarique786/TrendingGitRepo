@@ -8,8 +8,7 @@ package com.android.syed.gitrepo.ui.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +16,13 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.syed.gitrepo.R
 import com.android.syed.gitrepo.model.RepoModel
 import com.android.syed.gitrepo.utils.CircularTransform
 import com.android.syed.gitrepo.utils.getCircleGradientBg
+import com.android.syed.gitrepo.utils.getCircleStrokeBg
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_repo.view.*
 
@@ -43,11 +44,6 @@ class RepoListAdapter(private var context: Context) :
 
         holder.apply {
             loadImage(data.avatar, ivRepoIcon)
-            /*ivRepoIcon.background = getCircleStrokeBg(
-                context,
-                context.resources.getColor(R.color.white),
-                context.resources.getColor(R.color.white)
-            )*/
             tvItemAuthor.text = data.author
             tvItemName.text = data.name
             tvItemDescription.text = data.description
@@ -55,8 +51,9 @@ class RepoListAdapter(private var context: Context) :
                 ivItemLanguage.visibility = View.GONE
                 tvItemLanguage.visibility = View.GONE
             } else {
+                var gradient: GradientDrawable
                 try {
-                    val gradient = getCircleGradientBg(
+                    gradient = getCircleGradientBg(
                         Color.parseColor(data.languageColor),
                         Color.parseColor(data.languageColor)
                     )
@@ -66,8 +63,23 @@ class RepoListAdapter(private var context: Context) :
                     tvItemLanguage.visibility = View.VISIBLE
                 } catch (ex: IllegalArgumentException) {
                     // For "languageColor": "#ccc",
-                    ivItemLanguage.visibility = View.GONE
-                    //ex.printStackTrace()
+                    gradient = getCircleStrokeBg(
+                        context,
+                        Color.parseColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.brdr_green
+                            ).toString()
+                        ),
+                        Color.parseColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.shimmer_color
+                            ).toString()
+                        )
+                    )
+                    ivItemLanguage.setImageDrawable(gradient)
+                    //ivItemLanguage.visibility = View.GONE
                 }
             }
             tvItemStars.text = data.stars.toString()
